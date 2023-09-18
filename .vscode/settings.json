@@ -1,0 +1,11 @@
+{
+  "python.analysis.typeCheckingMode": "strict",
+  "flake8.args": ["--max-line-length=99"],
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "eeyore.yapf",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  }
+}
