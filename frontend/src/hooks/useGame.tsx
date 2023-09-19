@@ -2,14 +2,6 @@ import { useState } from "react";
 
 import { CellState } from "../common/types";
 
-// type useGameReturnType = [
-//   number,
-//   CellState[][],
-//   GameStatusType,
-//   () => void,
-//   (pos: [number, number], board: CellState[][]) => void
-// ];
-
 type useGameReturnType = [
   number,
   () => void,
