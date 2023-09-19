@@ -21,7 +21,7 @@ export default function App() {
     put: (_, __) => {},
   });
 
-  const [turn, setTurn, board, setBoard] = useGame();
+  const [turn, nextTurn, board, setBoard] = useGame();
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:8888");
@@ -73,7 +73,7 @@ export default function App() {
           }
         }
         setBoard(board);
-        setTurn(turn + 1);
+        nextTurn();
       }
     });
 
