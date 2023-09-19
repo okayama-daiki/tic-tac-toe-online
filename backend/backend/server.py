@@ -41,11 +41,11 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
             room_no: RoomNoType = message.lstrip("create").strip()
 
             if room_no == "":
-                await client.send(f'invalid room number, {room_no}')
+                await client.send('invalid room number')
                 continue
 
             if room_no in rooms:
-                await client.send(f'room {room_no} is already exist\n')
+                await client.send(f'room {room_no} is already exist')
                 continue
 
             rooms[room_no] = Room(initial_client_ids=[client.id],
@@ -66,7 +66,7 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
             room_no: RoomNoType = message.lstrip("join").strip()
 
             if room_no == "":
-                await client.send(f'invalid room number, {room_no}')
+                await client.send('invalid room number')
                 continue
 
             if room_no not in rooms:
