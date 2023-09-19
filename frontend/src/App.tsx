@@ -11,13 +11,13 @@ export default function App() {
   const [status, setClientStatus] = useState<ClientStatus>(
     ClientStatus.SEARCHING
   );
-  const [onClickFunctions, setOnClickFunctions] = useState<{
-    onClickCreate: (roomNo: string) => void;
-    onClickJoin: (roomNo: string) => void;
+  const [propsFunctions, setPropsFunctions] = useState<{
+    create: (roomNo: string) => void;
+    join: (roomNo: string) => void;
     put: (y: number, x: number) => void;
   }>({
-    onClickCreate: (_) => {},
-    onClickJoin: (_) => {},
+    create: (_) => {},
+    join: (_) => {},
     put: (_, __) => {},
   });
 
@@ -27,18 +27,18 @@ export default function App() {
     const socket = new WebSocket("ws://localhost:8888");
 
     socket.addEventListener("open", (_) => {
-      const onClickCreate = (roomNo: string) => {
+      const create = (roomNo: string) => {
         socket.send(`create ${roomNo}`);
       };
-      const onClickJoin = (roomNo: string) => {
+      const join = (roomNo: string) => {
         socket.send(`join ${roomNo}`);
       };
       const put = (y: number, x: number) => {
         socket.send(`put ${y} ${x}`);
       };
-      setOnClickFunctions({
-        onClickJoin,
-        onClickCreate,
+      setPropsFunctions({
+        create,
+        join,
         put,
       });
     });
@@ -68,12 +68,8 @@ export default function App() {
         ];
         for (let y = 0; y < 3; y++) {
           for (let x = 0; x < 3; x++) {
-            if (_board[y * 3 + x] == "o") {
-              board[y][x] = CellState.NOUGHT;
-            }
-            if (_board[y * 3 + x] == "x") {
-              board[y][x] = CellState.CROSS;
-            }
+            if (_board[y * 3 + x] == "o") board[y][x] = CellState.NOUGHT;
+            if (_board[y * 3 + x] == "x") board[y][x] = CellState.CROSS;
           }
         }
         setBoard(board);
@@ -91,14 +87,14 @@ export default function App() {
       {status !== ClientStatus.PLAYING && (
         <>
           <Lobby
-            onClickCreate={onClickFunctions.onClickCreate}
-            onClickJoin={onClickFunctions.onClickJoin}
+            onClickCreate={propsFunctions.create}
+            onClickJoin={propsFunctions.join}
           ></Lobby>
         </>
       )}
       {status === ClientStatus.WAITING && <Waiting></Waiting>}
       {status === ClientStatus.PLAYING && (
-        <Game put={onClickFunctions.put} turn={turn} board={board}></Game>
+        <Game put={propsFunctions.put} turn={turn} board={board}></Game>
       )}
     </>
   );
