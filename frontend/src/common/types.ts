@@ -1,10 +1,11 @@
-export enum PieceType {
+export enum CellState {
   "NOUGHT",
   "CROSS",
   "EMPTY",
 }
 
-export enum GameStatusType {
-  "ONGOING",
-  "FINISHED",
+export enum ClientStatus {
+  SEARCHING,
+  WAITING,
+  PLAYING,
 }

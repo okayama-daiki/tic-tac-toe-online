@@ -1,10 +1,10 @@
 import Piece from "./Piece";
-import { PieceType } from "../common/types";
+import { CellState } from "../common/types";
 import * as styles from "./Board.css";
 
 type BoardProps = {
-  board: PieceType[][];
-  onClick: (pos: [number, number]) => void;
+  board: CellState[][];
+  onClick: (y: number, x: number) => void;
 };
 
 export default function Board({ board, onClick }: BoardProps) {
@@ -16,7 +16,7 @@ export default function Board({ board, onClick }: BoardProps) {
             key={`${rowIndex}-${cellIndex}`}
             className={styles.cell}
             onClick={() => {
-              onClick([rowIndex, cellIndex]);
+              onClick(rowIndex, cellIndex);
             }}
           >
             <Piece pieceType={piece}></Piece>

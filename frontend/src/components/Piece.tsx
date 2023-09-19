@@ -1,14 +1,14 @@
-import { PieceType } from "../common/types";
+import { CellState } from "../common/types";
 import * as styles from "./Piece.css";
 
 type PieceProps = {
-  pieceType: PieceType;
+  pieceType: CellState;
 };
 
 export default function Piece({ pieceType }: PieceProps) {
   return (
     <>
-      {pieceType === PieceType.NOUGHT && (
+      {pieceType === CellState.NOUGHT && (
         <svg
           aria-label="O"
           role="img"
@@ -27,7 +27,7 @@ export default function Piece({ pieceType }: PieceProps) {
           ></path>
         </svg>
       )}
-      {pieceType === PieceType.CROSS && (
+      {pieceType === CellState.CROSS && (
         <svg
           aria-label="X"
           role="img"
