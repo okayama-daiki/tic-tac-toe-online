@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# import pytest
-import backend.game as Game
+import backend.backend.game as Game
 
 
 def test_put_handmade_1():
