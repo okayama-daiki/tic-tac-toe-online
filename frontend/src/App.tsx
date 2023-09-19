@@ -11,7 +11,6 @@ export default function App() {
   const [status, setClientStatus] = useState<ClientStatus>(
     ClientStatus.SEARCHING
   );
-  const [roomNo, setRoomNo] = useState<string>("");
   const [onClickFunctions, setOnClickFunctions] = useState<{
     onClickCreate: (roomNo: string) => void;
     onClickJoin: (roomNo: string) => void;
@@ -92,8 +91,6 @@ export default function App() {
       {status !== ClientStatus.PLAYING && (
         <>
           <Lobby
-            roomNo={roomNo}
-            setRoomNo={setRoomNo}
             onClickCreate={onClickFunctions.onClickCreate}
             onClickJoin={onClickFunctions.onClickJoin}
           ></Lobby>
