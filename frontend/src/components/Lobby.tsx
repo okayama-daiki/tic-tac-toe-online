@@ -11,24 +11,33 @@ export default function Lobby({ onClickCreate, onClickJoin }: LobbyProps) {
 
   return (
     <div className={styles.lobby}>
-      <h1>Tic-Tac-Toe Online</h1>
-      <div>room no</div>
-      <input
-        type="text"
-        value={roomNo}
-        onChange={(e) => {
-          setRoomNo(e.target.value);
-        }}
-      />
-      <div>
-        <button
-          onClick={() => {
-            onClickCreate(roomNo);
-          }}
-        >
-          create
-        </button>
-        <button onClick={() => onClickJoin(roomNo)}>join</button>
+      <div className={styles.box}>
+        <h1 className={styles.gameTitle}>Tic-Tac-Toe Online</h1>
+        <div className={styles.inputBox}>
+          <input
+            className={styles.input}
+            type="text"
+            required
+            value={roomNo}
+            onChange={(e) => {
+              setRoomNo(e.target.value);
+            }}
+          />
+          <label className={styles.label}>room number</label>
+        </div>
+        <div>
+          <a
+            className={styles.button}
+            onClick={() => {
+              onClickCreate(roomNo);
+            }}
+          >
+            create
+          </a>
+          <a className={styles.button} onClick={() => onClickJoin(roomNo)}>
+            join
+          </a>
+        </div>
       </div>
     </div>
   );
