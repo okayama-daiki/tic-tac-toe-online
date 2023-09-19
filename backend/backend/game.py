@@ -38,8 +38,8 @@ class TicTacToe:
         '''
         Return a string representation of the game board.
         '''
-        return '\n'.join(''.join(map(operator.attrgetter("value"), row))
-                         for row in self.board) + '\n'
+        return ''.join(''.join(map(operator.attrgetter('value'), row))
+                       for row in self.board)
 
     @property
     def current_turn(self) -> CellState:
