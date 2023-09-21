@@ -15,10 +15,12 @@ export default function App() {
   );
   const [propsFunctions, setPropsFunctions] = useState<{
     create: (roomNo: string) => void;
+    leave: () => void;
     join: (roomNo: string) => void;
     put: (y: number, x: number) => void;
   }>({
     create: (_) => {},
+    leave: () => {},
     join: (_) => {},
     put: (_, __) => {},
   });
@@ -32,6 +34,9 @@ export default function App() {
       const create = (roomNo: string) => {
         socket.send(`create ${roomNo}`);
       };
+      const leave = () => {
+        socket.send("leave");
+      };
       const join = (roomNo: string) => {
         socket.send(`join ${roomNo}`);
       };
@@ -40,6 +45,7 @@ export default function App() {
       };
       setPropsFunctions({
         create,
+        leave,
         join,
         put,
       });
@@ -86,6 +92,7 @@ export default function App() {
 
   const backToLobby = () => {
     setClientStatus(ClientStatus.SEARCHING);
+    propsFunctions.leave();
   };
 
   return (

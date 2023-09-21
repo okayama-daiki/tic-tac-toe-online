@@ -56,6 +56,20 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
 
             continue
 
+        # leave the room
+        # Note: This logic is intended for use by the client who created the room.
+        # This is because the client who join the existing room will start playing the game soon.
+        if message.startswith("leave"):
+
+            # `room_no is None` is not needed, but for mypy error: rooms[client.room_no]
+            if client.status != ClientStatus.WAITING or client.room_no is None:
+                await client.send('you are not in any room')
+                continue
+
+            del rooms[client.room_no]
+            client.status = ClientStatus.SEARCHING
+            client.room_no = None
+
         # join a existing room
         if message.startswith("join"):
 
