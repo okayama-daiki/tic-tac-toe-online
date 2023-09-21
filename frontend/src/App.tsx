@@ -82,9 +82,13 @@ export default function App() {
     });
   }, []);
 
+  const backToLobby = () => {
+    setClientStatus(ClientStatus.SEARCHING);
+  };
+
   return (
     <>
-      {status !== ClientStatus.PLAYING && (
+      {status === ClientStatus.SEARCHING && (
         <>
           <Lobby
             onClickCreate={propsFunctions.create}
@@ -92,7 +96,9 @@ export default function App() {
           ></Lobby>
         </>
       )}
-      {status === ClientStatus.WAITING && <Waiting></Waiting>}
+      {status === ClientStatus.WAITING && (
+        <Waiting back={backToLobby}></Waiting>
+      )}
       {status === ClientStatus.PLAYING && (
         <Game put={propsFunctions.put} turn={turn} board={board}></Game>
       )}
