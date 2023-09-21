@@ -7,6 +7,8 @@ import Game from "./components/Game";
 
 import { CellState, ClientStatus } from "./common/types";
 
+import "./App.css";
+
 export default function App() {
   const [status, setClientStatus] = useState<ClientStatus>(
     ClientStatus.SEARCHING
