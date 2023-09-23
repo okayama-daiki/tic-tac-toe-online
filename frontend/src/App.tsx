@@ -125,6 +125,12 @@ export default function App() {
 
       if (msg == "game finished") {
         setClientStatus(ClientStatus.SEARCHING);
+        setBoard([
+          [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
+          [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
+          [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
+        ]);
+        setResult("");
       }
     });
 
