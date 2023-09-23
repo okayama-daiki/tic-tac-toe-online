@@ -1,3 +1,5 @@
+// Reference: Paolo Duzioni April 3, 2017 (https://codepen.io/Paolo-Duzioni/pen/OpqbOr)
+
 import { style, keyframes } from "@vanilla-extract/css";
 
 const waves = keyframes({
