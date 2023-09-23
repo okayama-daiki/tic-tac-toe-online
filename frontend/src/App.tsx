@@ -13,6 +13,9 @@ export default function App() {
   const [status, setClientStatus] = useState<ClientStatus>(
     ClientStatus.SEARCHING
   );
+  const [errorMessageLobby, setErrorMessageLobby] = useState<string>("");
+  const [errorShaking, setErrorShaking] = useState<boolean>(false);
+
   const [propsFunctions, setPropsFunctions] = useState<{
     create: (roomNo: string) => void;
     leave: () => void;
@@ -58,13 +61,19 @@ export default function App() {
 
       if (msg.startsWith("success to create room")) {
         setClientStatus(ClientStatus.WAITING);
+        setErrorMessageLobby("");
+        setErrorShaking(false);
       }
 
       if (msg.startsWith("success to join room")) {
+        setErrorMessageLobby("");
+        setErrorShaking(false);
       }
 
       if (msg == "game started") {
         setClientStatus(ClientStatus.PLAYING);
+        setErrorMessageLobby("");
+        setErrorShaking(false);
       }
 
       if (msg.startsWith("board")) {
@@ -82,6 +91,22 @@ export default function App() {
         }
         setBoard(board);
         nextTurn();
+      }
+
+      if (msg == "The room number must be 1~6 digits.") {
+        setErrorMessageLobby(msg);
+        setErrorShaking(true);
+        setTimeout(() => {
+          setErrorShaking(false);
+        }, 520);
+      }
+
+      if (msg.endsWith("already exist.") || msg.endsWith("not exist.")) {
+        setErrorMessageLobby(msg);
+        setErrorShaking(true);
+        setTimeout(() => {
+          setErrorShaking(false);
+        }, 520);
       }
     });
 
@@ -102,6 +127,8 @@ export default function App() {
           <Lobby
             onClickCreate={propsFunctions.create}
             onClickJoin={propsFunctions.join}
+            errorMessage={errorMessageLobby}
+            errorShaking={errorShaking}
           ></Lobby>
         </>
       )}

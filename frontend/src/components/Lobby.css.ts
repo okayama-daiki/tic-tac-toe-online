@@ -2,6 +2,24 @@
 
 import { style, globalStyle, keyframes } from "@vanilla-extract/css";
 
+const shakeAnimation = keyframes({
+  "0%": {
+    transform: "translateX(0)",
+  },
+  "25%": {
+    transform: "translateX(-5px) rotate(5deg)",
+  },
+  "50%": {
+    transform: "translateX(5px) rotate(-5deg)",
+  },
+  "75%": {
+    transform: "translateX(-5px) rotate(5deg)",
+  },
+  "100%": {
+    transform: "translateX(0)",
+  },
+});
+
 export const lobby = style({
   display: "flex",
   flexDirection: "column",
@@ -68,6 +86,17 @@ export const validLabel = globalStyle(`${input}:valid ~ ${label}`, {
   left: "0",
   fontSize: "14px",
   color: "white",
+});
+
+export const errorMessage = style({
+  marginTop: "2px",
+  height: "10px",
+  fontSize: "0.9rem",
+  color: "red",
+});
+
+export const shake = style({
+  animation: `${shakeAnimation} 0.5s`,
 });
 
 export const button = style({

@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import asyncio
+import re
 import typing as t
+import unicodedata
 
 import websockets
 import websockets.server
@@ -9,6 +11,8 @@ import websockets.server
 from backend.backend.client import Client
 from backend.backend.common.types import ClientIdType, ClientStatus, RoomNoType
 from backend.backend.room import Room
+
+valid_digit_pattern = re.compile(r'^\d{1,6}$')
 
 clients: dict[ClientIdType, Client] = {}
 rooms: dict[RoomNoType, Room] = {}
@@ -38,14 +42,16 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
                 await client.send('already created room')
                 continue
 
-            room_no: RoomNoType = message.lstrip("create").strip()
+            room_no: RoomNoType = unicodedata.normalize(
+                'NFKC',
+                message.lstrip("create").strip())
 
-            if room_no == "":
-                await client.send('invalid room number')
+            if re.match(valid_digit_pattern, room_no) is None:
+                await client.send('The room number must be 1~6 digits.')
                 continue
 
             if room_no in rooms:
-                await client.send(f'room {room_no} is already exist')
+                await client.send(f'The room {room_no} is already exist.')
                 continue
 
             rooms[room_no] = Room(initial_client_ids=[client.id],
@@ -77,14 +83,16 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
                 await client.send('already joined room')
                 continue
 
-            room_no: RoomNoType = message.lstrip("join").strip()
+            room_no: RoomNoType = unicodedata.normalize(
+                'NFKC',
+                message.lstrip("join").strip())
 
-            if room_no == "":
-                await client.send('invalid room number')
+            if re.match(valid_digit_pattern, room_no) is None:
+                await client.send('The room number must be 1~6 digits.')
                 continue
 
             if room_no not in rooms:
-                await client.send(f'room {room_no} is not exist')
+                await client.send(f'The room {room_no} is not exist.')
                 continue
 
             room = rooms[room_no]

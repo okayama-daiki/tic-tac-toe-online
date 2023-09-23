@@ -4,14 +4,21 @@ import * as styles from "./Lobby.css";
 type LobbyProps = {
   onClickCreate: (roomNo: string) => void;
   onClickJoin: (roomNo: string) => void;
+  errorMessage: string;
+  errorShaking: boolean;
 };
 
-export default function Lobby({ onClickCreate, onClickJoin }: LobbyProps) {
+export default function Lobby({
+  onClickCreate,
+  onClickJoin,
+  errorMessage,
+  errorShaking,
+}: LobbyProps) {
   const [roomNo, setRoomNo] = useState<string>("");
 
   return (
     <div className={styles.lobby}>
-      <div className={styles.box}>
+      <div className={`${styles.box} ${errorShaking ? styles.shake : ""}`}>
         <h1 className={styles.gameTitle}>Tic-Tac-Toe Online</h1>
         <div className={styles.inputBox}>
           <input
@@ -25,7 +32,8 @@ export default function Lobby({ onClickCreate, onClickJoin }: LobbyProps) {
           />
           <label className={styles.label}>room number</label>
         </div>
-        <div>
+        <p className={styles.errorMessage}>{errorMessage}</p>
+        <div className={``}>
           <a
             className={styles.button}
             onClick={() => {
