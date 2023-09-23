@@ -56,7 +56,7 @@ export default function Lobby({
             onClick={() => onClickJoin(roomNo)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                onClickCreate(roomNo);
+                onClickJoin(roomNo);
               }
             }}
           >
