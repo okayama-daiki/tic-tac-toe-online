@@ -26,6 +26,7 @@ export default function Lobby({
             type="text"
             required
             value={roomNo}
+            tabIndex={1}
             onChange={(e) => {
               setRoomNo(e.target.value);
             }}
@@ -36,13 +37,18 @@ export default function Lobby({
         <div className={``}>
           <a
             className={styles.button}
+            tabIndex={2}
             onClick={() => {
               onClickCreate(roomNo);
             }}
           >
             create
           </a>
-          <a className={styles.button} onClick={() => onClickJoin(roomNo)}>
+          <a
+            className={styles.button}
+            tabIndex={3}
+            onClick={() => onClickJoin(roomNo)}
+          >
             join
           </a>
         </div>
