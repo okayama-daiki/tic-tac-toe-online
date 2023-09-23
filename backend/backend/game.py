@@ -58,6 +58,9 @@ class TicTacToe:
             if line in self.HITS:
                 return True
 
+        if all(CellState.BLANK not in row for row in self.board):
+            return True
+
         return False
 
     def get_result(self) -> str:
