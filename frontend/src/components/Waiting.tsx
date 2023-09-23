@@ -8,7 +8,16 @@ export default function Waiting({ back }: WaitingProps) {
   return (
     <div className={styles.waiting}>
       <div className={styles.buttonContainer}>
-        <a className={styles.button} onClick={back}>
+        <a
+          className={styles.button}
+          tabIndex={1}
+          onClick={back}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              back();
+            }
+          }}
+        >
           Back
         </a>
       </div>
