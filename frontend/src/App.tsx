@@ -22,11 +22,13 @@ export default function App() {
     leave: () => void;
     join: (roomNo: string) => void;
     put: (y: number, x: number) => void;
+    finish: () => void;
   }>({
     create: (_) => {},
     leave: () => {},
     join: (_) => {},
     put: (_, __) => {},
+    finish: () => {},
   });
 
   const [turn, nextTurn, board, setBoard] = useGame();
@@ -47,11 +49,15 @@ export default function App() {
       const put = (y: number, x: number) => {
         socket.send(`put ${y} ${x}`);
       };
+      const finish = () => {
+        socket.send(`finish`);
+      };
       setPropsFunctions({
         create,
         leave,
         join,
         put,
+        finish,
       });
     });
 
@@ -109,6 +115,10 @@ export default function App() {
           setErrorShaking(false);
         }, 520);
       }
+
+      if (msg == "game finished") {
+        setClientStatus(ClientStatus.SEARCHING);
+      }
     });
 
     socket.addEventListener("close", (_) => {
@@ -139,10 +149,14 @@ export default function App() {
         <Waiting back={backToLobby} roomNo={roomNo}></Waiting>
       )}
       {status === ClientStatus.PLAYING && (
-        <Game put={propsFunctions.put} turn={turn} board={board}></Game>
+        <Game
+          put={propsFunctions.put}
+          turn={turn}
+          board={board}
+          finish={propsFunctions.finish}
+        ></Game>
       )}
     </>
   );
-
-  return <Game put={propsFunctions.put} turn={turn} board={board}></Game>;
+  // return <Game put={propsFunctions.put} turn={turn} board={board}></Game>;
 }

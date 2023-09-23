@@ -144,9 +144,25 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
 
             if game.is_ended():
                 for client_id in room.client_ids:
-                    clients[client_id].status = ClientStatus.SEARCHING
-                    clients[client_id].room_no = None
-                    await clients[client_id].send('game finished')
+                    await clients[client_id].send('game ended: draw or win')
+
+        # finish game
+        if message.startswith("finish"):
+
+            # `room_no is None` is not needed, but for mypy error: rooms[client.room_no]
+            if client.status != ClientStatus.PLAYING or client.room_no is None:
+                await client.send(('you are not in any room'))
+                continue
+
+            room = rooms[client.room_no]
+            del rooms[client.room_no]
+
+            for client_id in room.client_ids:
+                clients[client_id].status = ClientStatus.SEARCHING
+                clients[client_id].room_no = None
+                await clients[client_id].send('game finished')
+
+            del room
 
 
 # TODO: HOST and PORT should be set by environment variable
