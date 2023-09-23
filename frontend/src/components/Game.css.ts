@@ -31,3 +31,9 @@ export const button = style({
     },
   },
 });
+
+export const result = style({
+  height: "20px",
+  color: "white",
+  marginTop: "1rem",
+});

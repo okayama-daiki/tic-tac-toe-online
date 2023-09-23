@@ -60,6 +60,18 @@ class TicTacToe:
 
         return False
 
+    def get_result(self) -> str:
+        '''
+        Return the result of the game.
+        '''
+        if not self.is_ended():
+            return 'not ended'
+        for target_line in self.LINES:
+            line = tuple(self.board[y][x] for y, x in target_line)
+            if line in self.HITS:
+                return f'{line[0].value} win'
+        return 'draw'
+
     def put(self, position: PositionType) -> bool:
         '''
         Return True if the position is valid and the cell is blank.

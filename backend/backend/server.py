@@ -144,7 +144,8 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
 
             if game.is_ended():
                 for client_id in room.client_ids:
-                    await clients[client_id].send('game ended: draw or win')
+                    await clients[client_id].send(
+                        f'game ended: {game.get_result()}')
 
         # finish game
         if message.startswith("finish"):

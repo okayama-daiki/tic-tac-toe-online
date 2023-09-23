@@ -17,6 +17,8 @@ export default function App() {
   const [errorMessageLobby, setErrorMessageLobby] = useState<string>("");
   const [errorShaking, setErrorShaking] = useState<boolean>(false);
 
+  const [result, setResult] = useState<string>("");
+
   const [propsFunctions, setPropsFunctions] = useState<{
     create: (roomNo: string) => void;
     leave: () => void;
@@ -116,6 +118,11 @@ export default function App() {
         }, 520);
       }
 
+      if (msg.startsWith("game ended")) {
+        const [_, _result] = msg.split(":");
+        setResult(_result.trim());
+      }
+
       if (msg == "game finished") {
         setClientStatus(ClientStatus.SEARCHING);
       }
@@ -153,6 +160,7 @@ export default function App() {
           put={propsFunctions.put}
           turn={turn}
           board={board}
+          result={result}
           finish={propsFunctions.finish}
         ></Game>
       )}
