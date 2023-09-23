@@ -10,8 +10,8 @@ type GameProps = {
 export default function Game({ put, turn, board }: GameProps) {
   return (
     <div className={styles.game}>
-      <div>{`turn: ${turn % 2 === 0 ? "CROSS" : "NOUGHT"}`}</div>
       <Board board={board} onClick={put} />
+      {/* <div className={styles.currentTurn}>{"XO"[turn % 2]}'s Turn</div> */}
     </div>
   );
 }

@@ -5,55 +5,26 @@ type PieceProps = {
   pieceType: CellState;
 };
 
+const NOUGHT = (
+  <svg viewBox="0 0 128 128" className={styles.piece}>
+    <circle cx="64" cy="64" r="48" className={styles.nought}></circle>
+  </svg>
+);
+
+const CROSS = (
+  <svg viewBox="0 0 128 128" className={styles.piece}>
+    <path d="M16,16L112,112" className={styles.cross}></path>
+    <path d="M112,16L16,112" className={styles.cross}></path>
+  </svg>
+);
+
+const EMPTY = <svg className={styles.piece}></svg>;
+
 export default function Piece({ pieceType }: PieceProps) {
-  return (
-    <>
-      {pieceType === CellState.NOUGHT && (
-        <svg
-          aria-label="O"
-          role="img"
-          viewBox="0 0 128 128"
-          className={styles.piece}
-          style={{ fill: "transparent" }}
-        >
-          <path
-            d="M64,16A48,48 0 1,0 64,112A48,48 0 1,0 64,16"
-            style={{
-              stroke: "rgb(84, 84, 84)",
-              strokeDasharray: "301.635",
-              strokeWidth: "10px",
-              strokeDashoffset: "0",
-            }}
-          ></path>
-        </svg>
-      )}
-      {pieceType === CellState.CROSS && (
-        <svg
-          aria-label="X"
-          role="img"
-          viewBox="0 0 128 128"
-          className={styles.piece}
-        >
-          <path
-            d="M16,16L112,112"
-            style={{
-              stroke: "rgb(84, 84, 84)",
-              strokeDasharray: "135.764",
-              strokeWidth: "10px",
-              strokeDashoffset: "0",
-            }}
-          ></path>
-          <path
-            d="M112,16L16,112"
-            style={{
-              stroke: "rgb(84, 84, 84)",
-              strokeDasharray: "135.764",
-              strokeWidth: "10px",
-              strokeDashoffset: "0",
-            }}
-          ></path>
-        </svg>
-      )}
-    </>
-  );
+  const mapping = {
+    [CellState.NOUGHT]: NOUGHT,
+    [CellState.CROSS]: CROSS,
+    [CellState.EMPTY]: EMPTY,
+  };
+  return mapping[pieceType];
 }

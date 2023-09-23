@@ -143,4 +143,6 @@ export default function App() {
       )}
     </>
   );
+
+  return <Game put={propsFunctions.put} turn={turn} board={board}></Game>;
 }

@@ -1,24 +1,44 @@
 import { style, keyframes } from "@vanilla-extract/css";
 
-const cellSize = "clamp(50px, 4vw, 70px)";
+const lineDraw = keyframes({
+  "0%": {
+    strokeDashoffset: "102",
+  },
+  "100%": {
+    strokeDashoffset: "0",
+  },
+});
+
+export const boardContainer = style({
+  width: "200px",
+  height: "200px",
+});
 
 export const board = style({
-  display: "grid",
-  width: `calc(${cellSize} * 3 + 10px)`,
-  height: `calc(${cellSize} * 3 + 10px)`,
-  gridTemplateColumns: "repeat(3, 1fr)",
-  gridTemplateRows: "repeat(3, 1fr)",
+  position: "relative",
 });
 
-const borderAnimation = keyframes({
-  "0%": { border: "0px solid black" },
-  "50%": { border: "0.5px solid black" },
-  "100%": { border: "1px solid black" },
+export const cell = style({});
+
+export const boardView = style({
+  position: "absolute",
+  top: "0",
+  left: "0",
+  zIndex: "1",
 });
 
-export const cell = style({
-  width: cellSize,
-  height: cellSize,
-  textAlign: "center",
-  animation: `${borderAnimation} 2s forwards`,
+export const line = style({
+  stroke: "whitesmoke",
+  opacity: "0.6",
+  strokeWidth: "3px",
+  strokeDasharray: "102",
+  strokeDashoffset: "0",
+  animation: `${lineDraw} 0.5s ease-in-out`,
+});
+
+export const boardClickable = style({
+  position: "absolute",
+  top: "0",
+  left: "0",
+  zIndex: "2",
 });
