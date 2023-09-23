@@ -118,5 +118,10 @@ export const button = style({
       borderRadius: "5px",
       boxShadow: "0 0 3px white, 0 0 5px white",
     },
+    "&:focus": {
+      outline: "1px solid white",
+      borderRadius: "5px",
+      transition: "none",
+    },
   },
 });

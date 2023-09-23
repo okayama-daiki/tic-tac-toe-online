@@ -41,6 +41,11 @@ export default function Lobby({
             onClick={() => {
               onClickCreate(roomNo);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                onClickCreate(roomNo);
+              }
+            }}
           >
             create
           </a>
@@ -48,6 +53,11 @@ export default function Lobby({
             className={styles.button}
             tabIndex={3}
             onClick={() => onClickJoin(roomNo)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                onClickJoin(roomNo);
+              }
+            }}
           >
             join
           </a>
