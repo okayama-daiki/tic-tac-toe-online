@@ -13,6 +13,7 @@ export default function App() {
   const [status, setClientStatus] = useState<ClientStatus>(
     ClientStatus.SEARCHING
   );
+  const [roomNo, setRoomNo] = useState<string>("");
   const [errorMessageLobby, setErrorMessageLobby] = useState<string>("");
   const [errorShaking, setErrorShaking] = useState<boolean>(false);
 
@@ -127,13 +128,15 @@ export default function App() {
           <Lobby
             onClickCreate={propsFunctions.create}
             onClickJoin={propsFunctions.join}
+            roomNo={roomNo}
+            setRoomNo={setRoomNo}
             errorMessage={errorMessageLobby}
             errorShaking={errorShaking}
           ></Lobby>
         </>
       )}
       {status === ClientStatus.WAITING && (
-        <Waiting back={backToLobby}></Waiting>
+        <Waiting back={backToLobby} roomNo={roomNo}></Waiting>
       )}
       {status === ClientStatus.PLAYING && (
         <Game put={propsFunctions.put} turn={turn} board={board}></Game>

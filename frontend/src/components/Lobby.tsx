@@ -1,9 +1,10 @@
-import { useState } from "react";
 import * as styles from "./Lobby.css";
 
 type LobbyProps = {
   onClickCreate: (roomNo: string) => void;
   onClickJoin: (roomNo: string) => void;
+  roomNo: string;
+  setRoomNo: (roomNo: string) => void;
   errorMessage: string;
   errorShaking: boolean;
 };
@@ -11,11 +12,11 @@ type LobbyProps = {
 export default function Lobby({
   onClickCreate,
   onClickJoin,
+  roomNo,
+  setRoomNo,
   errorMessage,
   errorShaking,
 }: LobbyProps) {
-  const [roomNo, setRoomNo] = useState<string>("");
-
   return (
     <div className={styles.lobby}>
       <div className={`${styles.box} ${errorShaking ? styles.shake : ""}`}>
@@ -55,7 +56,7 @@ export default function Lobby({
             onClick={() => onClickJoin(roomNo)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                onClickJoin(roomNo);
+                onClickCreate(roomNo);
               }
             }}
           >

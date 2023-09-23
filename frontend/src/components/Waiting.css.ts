@@ -89,3 +89,5 @@ export const message = style({
   marginTop: "1rem",
   textAlign: "center",
 });
+
+export const roomNo = style({});
