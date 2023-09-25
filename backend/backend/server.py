@@ -168,5 +168,9 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
 
 # TODO: HOST and PORT should be set by environment variable
 async def main():
-    async with websockets.server.serve(handle_client, "localhost", 8888):
+    async with websockets.server.serve(handle_client, "0.0.0.0",
+                                       5174) as server:
+        for socket in server.sockets:
+            host, port = socket.getsockname()
+            print(f'Serving on ws://{host}:{port}')
         await asyncio.Future()
