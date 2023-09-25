@@ -36,8 +36,7 @@ export const box = style({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  width: "clamp(200px, 50%, 300px)",
-  height: "clamp(200px, 50%, 300px)",
+  width: "300px",
 });
 
 export const gameTitle = style({
