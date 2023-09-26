@@ -60,6 +60,8 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
             client.status = ClientStatus.WAITING
             await client.send(f'success to create room {room_no}')
 
+            rooms[room_no].cross = client.id
+
             continue
 
         # leave the room
@@ -106,6 +108,11 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
 
             for client_id in rooms[room_no].client_ids:
                 await clients[client_id].send('game started')
+                if client_id == room.cross:
+                    await clients[client_id].send('board □□□□□□□□□ x(you)')
+                else:
+                    await clients[client_id].send('board □□□□□□□□□ x(opponent)'
+                                                  )
                 clients[client_id].status = ClientStatus.PLAYING
 
         # playing game
@@ -118,11 +125,6 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
 
             room = rooms[client.room_no]
             game = room.game
-
-            # first move
-            # Note: the client who send "put" message first is always cross
-            if game.elapsed_turn == 0:
-                room.cross = client.id
 
             if game.elapsed_turn % 2 == 0:
                 if client.id != room.cross:
@@ -140,7 +142,18 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
 
             for client_id in room.client_ids:
                 await clients[client_id].send(f'put {y} {x}')
-                await clients[client_id].send(f'board {game}')
+                if game.elapsed_turn % 2 == 0:
+                    if client_id == room.cross:
+                        await clients[client_id].send(f'board {game} x(you)')
+                    else:
+                        await clients[client_id].send(
+                            f'board {game} x(opponent)')
+                else:
+                    if client_id == room.cross:
+                        await clients[client_id].send(
+                            f'board {game} o(opponent)')
+                    else:
+                        await clients[client_id].send(f'board {game} o(you)')
 
             if game.is_ended():
                 for client_id in room.client_ids:

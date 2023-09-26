@@ -86,7 +86,7 @@ export default function App() {
       }
 
       if (msg.startsWith("board")) {
-        const [_, _board] = msg.split(" ");
+        const [_, _board, _turn] = msg.split(" ");
         const board: CellState[][] = [
           [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
           [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
@@ -100,6 +100,7 @@ export default function App() {
         }
         setBoard(board);
         nextTurn();
+        setResult(_turn);
       }
 
       if (msg == "The room number must be 1~6 digits.") {
