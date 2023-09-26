@@ -73,6 +73,115 @@ export const face = style({
   },
 });
 
+export const line1 = style({
+  position: "absolute",
+  top: "35%",
+  left: "10%",
+  height: "1px",
+  width: "80%",
+  backgroundColor: "black",
+});
+
+export const line2 = style({
+  position: "absolute",
+  top: "65%",
+  left: "10%",
+  height: "1px",
+  width: "80%",
+  backgroundColor: "black",
+});
+
+export const line3 = style({
+  position: "absolute",
+  top: "10%",
+  left: "35%",
+  height: "80%",
+  width: "1px",
+  backgroundColor: "black",
+});
+
+export const line4 = style({
+  position: "absolute",
+  top: "10%",
+  left: "65%",
+  height: "80%",
+  width: "1px",
+  backgroundColor: "black",
+});
+
+export const cross = style({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  height: "30%",
+  width: "30%",
+  transform: "translate(-50%, -50%)",
+  selectors: {
+    "&:before": {
+      content: '""',
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      height: "1px",
+      width: "80%",
+      backgroundColor: "black",
+      transform: "translate(-50%, -50%) rotate(45deg)",
+    },
+    "&:after": {
+      content: '""',
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      height: "1px",
+      width: "80%",
+      backgroundColor: "black",
+      transform: "translate(-50%, -50%) rotate(-45deg)",
+    },
+  },
+});
+
+export const cross2 = style({
+  position: "absolute",
+  top: "80%",
+  left: "50%",
+  height: "30%",
+  width: "30%",
+  transform: "translate(-50%, -50%)",
+  selectors: {
+    "&:before": {
+      content: '""',
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      height: "1px",
+      width: "80%",
+      backgroundColor: "black",
+      transform: "translate(-50%, -50%) rotate(45deg)",
+    },
+    "&:after": {
+      content: '""',
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      height: "1px",
+      width: "80%",
+      backgroundColor: "black",
+      transform: "translate(-50%, -50%) rotate(-45deg)",
+    },
+  },
+});
+
+export const nought = style({
+  position: "absolute",
+  top: "80%",
+  left: "80%",
+  height: "15%",
+  width: "15%",
+  transform: "translate(-50%, -50%)",
+  borderRadius: "50%",
+  border: "1px solid black",
+});
+
 export const dot = style({
   width: ".8rem",
   height: ".8rem",
@@ -81,6 +190,16 @@ export const dot = style({
 });
 
 export const firstFace = style({
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+export const secondFace = style({
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+export const thirdFace = style({
   justifyContent: "center",
   alignItems: "center",
 });

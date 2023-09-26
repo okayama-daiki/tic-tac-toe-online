@@ -24,13 +24,28 @@ export default function Waiting({ back, roomNo }: WaitingProps) {
       </div>
       <div className={styles.board}>
         <div className={`${styles.face} ${styles.firstFace}`}>
-          <div className={styles.dot}></div>
+          <div className={styles.line1}></div>
+          <div className={styles.line2}></div>
+          <div className={styles.line3}></div>
+          <div className={styles.line4}></div>
+          <div className={styles.cross}></div>
         </div>
-        <div className={`${styles.face} ${styles.firstFace}`}>
-          <div className={styles.dot}></div>
+        <div className={`${styles.face} ${styles.secondFace}`}>
+          <div className={styles.line1}></div>
+          <div className={styles.line2}></div>
+          <div className={styles.line3}></div>
+          <div className={styles.line4}></div>
+          <div className={styles.cross}></div>
+          <div className={styles.nought}></div>
         </div>
-        <div className={`${styles.face} ${styles.firstFace}`}>
-          <div className={styles.dot}></div>
+        <div className={`${styles.face} ${styles.thirdFace}`}>
+          <div className={styles.line1}></div>
+          <div className={styles.line2}></div>
+          <div className={styles.line3}></div>
+          <div className={styles.line4}></div>
+          <div className={styles.cross}></div>
+          <div className={styles.cross2}></div>
+          <div className={styles.nought}></div>
         </div>
       </div>
       <div className={styles.message}>
