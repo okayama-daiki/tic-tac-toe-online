@@ -36,7 +36,7 @@ export default function App() {
   const [turn, nextTurn, board, setBoard] = useGame();
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:5174");
+    const socket = new WebSocket("ws://13.115.128.5:5174");
 
     socket.addEventListener("open", (_) => {
       const create = (roomNo: string) => {
