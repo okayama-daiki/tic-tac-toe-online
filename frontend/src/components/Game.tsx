@@ -28,6 +28,7 @@ export default function Game({ put, turn, board, result, finish }: GameProps) {
       </div>
       <Board board={board} onClick={put} />
       <div className={styles.result}>{result}</div>
+      <div style={{ display: "none" }}>{turn}</div>
       {/* <div className={styles.currentTurn}>{"XO"[turn % 2]}'s Turn</div> */}
     </div>
   );
