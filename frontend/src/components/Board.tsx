@@ -34,7 +34,9 @@ export default function Board({ board, onClick }: BoardProps) {
                   <td
                     key={x}
                     onClick={() => {
-                      onClick(y, x);
+                      if (cell === CellState.EMPTY) {
+                        onClick(y, x);
+                      }
                     }}
                   >
                     <Piece pieceType={cell}></Piece>
