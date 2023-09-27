@@ -16,7 +16,7 @@ export const currentTurn = style({
 });
 
 export const buttonContainer = style({
-  width: "230px",
+  width: "200px",
   marginBottom: "1rem",
 });
 
