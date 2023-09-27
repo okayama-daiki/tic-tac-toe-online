@@ -107,12 +107,12 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
                 continue
 
             for client_id in rooms[room_no].client_ids:
-                await clients[client_id].send('game started')
                 if client_id == room.cross:
-                    await clients[client_id].send('board □□□□□□□□□ x(you)')
+                    await clients[client_id].send('game started x')
                 else:
-                    await clients[client_id].send('board □□□□□□□□□ x(opponent)'
-                                                  )
+                    await clients[client_id].send('game started o')
+                await clients[client_id].send(
+                    f'board {room.game} {room.game.elapsed_turn}')
                 clients[client_id].status = ClientStatus.PLAYING
 
         # playing game
@@ -142,18 +142,8 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
 
             for client_id in room.client_ids:
                 await clients[client_id].send(f'put {y} {x}')
-                if game.elapsed_turn % 2 == 0:
-                    if client_id == room.cross:
-                        await clients[client_id].send(f'board {game} x(you)')
-                    else:
-                        await clients[client_id].send(
-                            f'board {game} x(opponent)')
-                else:
-                    if client_id == room.cross:
-                        await clients[client_id].send(
-                            f'board {game} o(opponent)')
-                    else:
-                        await clients[client_id].send(f'board {game} o(you)')
+                await clients[client_id].send(
+                    f'board {game} {game.elapsed_turn}')
 
             if game.is_ended():
                 for client_id in room.client_ids:

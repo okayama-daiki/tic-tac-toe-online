@@ -37,3 +37,32 @@ export const result = style({
   color: "white",
   marginTop: "1rem",
 });
+
+export const turnContainer = style({
+  width: "200px",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  marginBottom: "1rem",
+});
+
+export const turn = style({
+  width: "45%",
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+  borderBottom: "2px solid rgba(245, 245, 245, 0.3)",
+  borderRadius: "3%",
+  color: "rgba(245, 245, 245, 0.3)",
+  transition: "all 0.5s ease-in-out",
+});
+
+export const activeTurn = style({
+  borderBottom: "2px solid rgba(245, 245, 245, 1)",
+  color: "rgba(245, 245, 245, 1)",
+});
+
+export const text = style({
+  fontSize: "1rem",
+});

@@ -17,6 +17,7 @@ export default function App() {
   const [errorMessageLobby, setErrorMessageLobby] = useState<string>("");
   const [errorShaking, setErrorShaking] = useState<boolean>(false);
 
+  const [selfState, setSelfState] = useState<CellState>(CellState.EMPTY);
   const [result, setResult] = useState<string>("");
 
   const [propsFunctions, setPropsFunctions] = useState<{
@@ -33,10 +34,10 @@ export default function App() {
     finish: () => {},
   });
 
-  const [turn, nextTurn, board, setBoard] = useGame();
+  const [turn, setTurn, board, setBoard] = useGame();
 
   useEffect(() => {
-    const socket = new WebSocket("ws://13.115.128.5:5174");
+    const socket = new WebSocket("ws://localhost:5174");
 
     socket.addEventListener("open", (_) => {
       const create = (roomNo: string) => {
@@ -79,14 +80,18 @@ export default function App() {
         setErrorShaking(false);
       }
 
-      if (msg == "game started") {
+      if (msg.startsWith("game started")) {
+        const [_, __, state] = msg.split(" ");
         setClientStatus(ClientStatus.PLAYING);
+        if (state == "o") setSelfState(CellState.NOUGHT);
+        if (state == "x") setSelfState(CellState.CROSS);
         setErrorMessageLobby("");
         setErrorShaking(false);
+        setTurn(0);
       }
 
       if (msg.startsWith("board")) {
-        const [_, _board, _turn] = msg.split(" ");
+        const [_, _board, _elapsed_turn] = msg.split(" ");
         const board: CellState[][] = [
           [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
           [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
@@ -99,8 +104,7 @@ export default function App() {
           }
         }
         setBoard(board);
-        nextTurn();
-        setResult(_turn);
+        setTurn(parseInt(_elapsed_turn));
       }
 
       if (msg == "The room number must be 1~6 digits.") {
@@ -169,6 +173,7 @@ export default function App() {
           board={board}
           result={result}
           finish={propsFunctions.finish}
+          selfState={selfState}
         ></Game>
       )}
     </>

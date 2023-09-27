@@ -4,7 +4,7 @@ import { CellState } from "../common/types";
 
 type useGameReturnType = [
   number,
-  () => void,
+  (turn: number) => void,
   CellState[][],
   (board: CellState[][]) => void
 ];
@@ -17,9 +17,5 @@ export default function useGame(): useGameReturnType {
     [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
   ]);
 
-  const nextTurn = () => {
-    setTurn((turn) => turn + 1);
-  };
-
-  return [turn, nextTurn, board, setBoard];
+  return [turn, setTurn, board, setBoard];
 }
