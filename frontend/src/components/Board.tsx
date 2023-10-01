@@ -5,9 +5,10 @@ import * as styles from "./Board.css";
 type BoardProps = {
   board: CellState[][];
   onClick: (y: number, x: number) => void;
+  boardAnimation: boolean;
 };
 
-export default function Board({ board, onClick }: BoardProps) {
+export default function Board({ board, onClick, boardAnimation }: BoardProps) {
   return (
     <div className={styles.boardContainer}>
       <div className={styles.board}>
@@ -17,14 +18,38 @@ export default function Board({ board, onClick }: BoardProps) {
           height="200px"
           className={styles.boardView}
         >
-          <path d="M108,83 L6,83" className={styles.line}></path>
-          <path d="M108,153 L6,153" className={styles.line}></path>
-          <path d="M108,83 L210,83" className={styles.line}></path>
-          <path d="M108,153 L210,153" className={styles.line}></path>
-          <path d="M73,118 L73,16" className={styles.line}></path>
-          <path d="M143,118 L143,16" className={styles.line}></path>
-          <path d="M73,118 L73,220" className={styles.line}></path>
-          <path d="M143,118 L143,220" className={styles.line}></path>
+          <path
+            d="M108,83 L6,83"
+            className={`${boardAnimation ? styles.line : ""}`}
+          ></path>
+          <path
+            d="M108,153 L6,153"
+            className={`${boardAnimation ? styles.line : ""}`}
+          ></path>
+          <path
+            d="M108,83 L210,83"
+            className={`${boardAnimation ? styles.line : ""}`}
+          ></path>
+          <path
+            d="M108,153 L210,153"
+            className={`${boardAnimation ? styles.line : ""}`}
+          ></path>
+          <path
+            d="M73,118 L73,16"
+            className={`${boardAnimation ? styles.line : ""}`}
+          ></path>
+          <path
+            d="M143,118 L143,16"
+            className={`${boardAnimation ? styles.line : ""}`}
+          ></path>
+          <path
+            d="M73,118 L73,220"
+            className={`${boardAnimation ? styles.line : ""}`}
+          ></path>
+          <path
+            d="M143,118 L143,220"
+            className={`${boardAnimation ? styles.line : ""}`}
+          ></path>
         </svg>
         <table className={styles.boardClickable}>
           <tbody>

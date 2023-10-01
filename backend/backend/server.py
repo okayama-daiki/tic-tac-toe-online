@@ -150,6 +150,23 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
                     await clients[client_id].send(
                         f'game ended: {game.get_result()}')
 
+        # restart game
+        if message.startswith("restart"):
+
+            # `room_no is None` is not needed, but for mypy error: rooms[client.room_no]
+            if client.status != ClientStatus.PLAYING or client.room_no is None:
+                await client.send(('you are not in any room'))
+                continue
+
+            room = rooms[client.room_no]
+            game = room.game
+
+            game.reset()
+
+            for client_id in room.client_ids:
+                await clients[client_id].send(
+                    f'board {game} {game.elapsed_turn}')
+
         # finish game
         if message.startswith("finish"):
 

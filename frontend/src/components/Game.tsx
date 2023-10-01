@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Board from "./Board";
 import Piece from "./Piece";
 
@@ -10,6 +12,7 @@ type GameProps = {
   turn: number;
   board: number[][];
   result: string;
+  restart: () => void;
   finish: () => void;
   selfState: CellState;
 };
@@ -19,9 +22,12 @@ export default function Game({
   turn,
   board,
   result,
+  restart,
   finish,
   selfState,
 }: GameProps) {
+  const [boardAnimation, setBoardAnimation] = useState<boolean>(true);
+
   return (
     <div className={styles.game}>
       <div className={styles.buttonContainer}>
@@ -70,9 +76,21 @@ export default function Game({
           </div>
         </div>
       </div>
-      <Board board={board} onClick={put} />
+      <Board board={board} onClick={put} boardAnimation={boardAnimation} />
 
       <div className={styles.result}>{result}</div>
+      <a
+        className={styles.button}
+        onClick={() => {
+          restart();
+          setBoardAnimation(false);
+          setTimeout(() => {
+            setBoardAnimation(true);
+          }, 100);
+        }}
+      >
+        restart
+      </a>
     </div>
   );
 }

@@ -25,12 +25,14 @@ export default function App() {
     leave: () => void;
     join: (roomNo: string) => void;
     put: (y: number, x: number) => void;
+    restart: () => void;
     finish: () => void;
   }>({
     create: (_) => {},
     leave: () => {},
     join: (_) => {},
     put: (_, __) => {},
+    restart: () => {},
     finish: () => {},
   });
 
@@ -52,6 +54,9 @@ export default function App() {
       const put = (y: number, x: number) => {
         socket.send(`put ${y} ${x}`);
       };
+      const restart = () => {
+        socket.send(`restart`);
+      };
       const finish = () => {
         socket.send(`finish`);
       };
@@ -60,6 +65,7 @@ export default function App() {
         leave,
         join,
         put,
+        restart,
         finish,
       });
     });
@@ -172,6 +178,7 @@ export default function App() {
           turn={turn}
           board={board}
           result={result}
+          restart={propsFunctions.restart}
           finish={propsFunctions.finish}
           selfState={selfState}
         ></Game>

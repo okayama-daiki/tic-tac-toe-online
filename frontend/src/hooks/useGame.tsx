@@ -6,7 +6,9 @@ type useGameReturnType = [
   number,
   (turn: number) => void,
   CellState[][],
-  (board: CellState[][]) => void
+  (board: CellState[][]) => void,
+  boolean,
+  (isEnded: boolean) => void
 ];
 
 export default function useGame(): useGameReturnType {
@@ -16,6 +18,7 @@ export default function useGame(): useGameReturnType {
     [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
     [CellState.EMPTY, CellState.EMPTY, CellState.EMPTY],
   ]);
+  const [isEnded, setIsEnded] = useState<boolean>(false);
 
-  return [turn, setTurn, board, setBoard];
+  return [turn, setTurn, board, setBoard, isEnded, setIsEnded];
 }
