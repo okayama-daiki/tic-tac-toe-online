@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import asyncio
+import logging
 import re
 import typing as t
 import unicodedata
@@ -11,6 +12,19 @@ import websockets.server
 from backend.backend.client import Client
 from backend.backend.common.types import ClientIdType, ClientStatus, RoomNoType
 from backend.backend.room import Room
+
+logger = logging.getLogger(__name__)
+handler = logging.FileHandler('./backend/logs/server.log')
+handler.setFormatter(
+    logging.Formatter('%(asctime)s - %(levelname)s: %(message)s'))
+
+if __debug__:
+    logger.setLevel(logging.DEBUG)
+    handler.setLevel(logging.DEBUG)
+else:
+    logger.setLevel(logging.INFO)
+    handler.setLevel(logging.INFO)
+logger.addHandler(handler)
 
 valid_digit_pattern = re.compile(r'^\d{1,6}$')
 
@@ -27,7 +41,7 @@ async def handle_client(websocket: websockets.server.WebSocketServerProtocol):
     async for message in websocket:
 
         message = str(message)
-        print(f'{client.id}> {message}')
+        logger.info(f'{client.id}> {message}')
 
         # disconnect
         if any(message.startswith(sign) for sign in ('quit', 'exit', 'close')):
@@ -192,5 +206,5 @@ async def main():
                                        5174) as server:
         for socket in server.sockets:
             host, port = socket.getsockname()
-            print(f'Serving on ws://{host}:{port}')
+            logger.info(f'Serving on ws://{host}:{port}')
         await asyncio.Future()
