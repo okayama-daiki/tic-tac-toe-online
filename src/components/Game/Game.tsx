@@ -8,13 +8,12 @@ import { CellState } from "../../common/types";
 import * as styles from "./Game.css";
 
 type GameProps = {
-  put: (y: number, x: number) => void;
+  put: (position: [number, number]) => void;
   turn: number;
   board: number[][];
   result: string;
   restart: () => void;
-  finish: () => void;
-  selfState: CellState;
+  exit: () => void;
 };
 
 export default function Game({
@@ -23,8 +22,7 @@ export default function Game({
   board,
   result,
   restart,
-  finish,
-  selfState,
+  exit,
 }: GameProps) {
   const [boardAnimation, setBoardAnimation] = useState<boolean>(true);
 
@@ -34,10 +32,10 @@ export default function Game({
         <a
           className={styles.button}
           tabIndex={1}
-          onClick={finish}
+          onClick={exit}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              finish();
+              exit();
             }
           }}
         >
@@ -57,7 +55,7 @@ export default function Game({
             }}
           />
           <div className={styles.text}>
-            {selfState == CellState.CROSS ? "(you)" : "(opp.)"}
+            {/* {selfState == CellState.CROSS ? "(you)" : "(opp.)"} */}
           </div>
         </div>
         <div
@@ -72,7 +70,7 @@ export default function Game({
             }}
           />
           <div className={styles.text}>
-            {selfState == CellState.NOUGHT ? "(you)" : "(opp.)"}
+            {/* {selfState == CellState.NOUGHT ? "(you)" : "(opp.)"} */}
           </div>
         </div>
       </div>

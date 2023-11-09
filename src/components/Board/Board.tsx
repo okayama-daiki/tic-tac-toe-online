@@ -4,7 +4,7 @@ import * as styles from "./Board.css";
 
 type BoardProps = {
   board: CellState[][];
-  onClick: (y: number, x: number) => void;
+  onClick: (position: [number, number]) => void;
   boardAnimation: boolean;
 };
 
@@ -60,7 +60,7 @@ export default function Board({ board, onClick, boardAnimation }: BoardProps) {
                     key={x}
                     onClick={() => {
                       if (cell === CellState.EMPTY) {
-                        onClick(y, x);
+                        onClick([y, x]);
                       }
                     }}
                   >

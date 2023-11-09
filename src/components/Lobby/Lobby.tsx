@@ -1,22 +1,17 @@
+import { useState } from "react";
+
 import * as styles from "./Lobby.css";
 
 type LobbyProps = {
-  onClickCreate: (roomNo: string) => void;
-  onClickJoin: (roomNo: string) => void;
-  roomNo: string;
-  setRoomNo: (roomNo: string) => void;
-  errorMessage: string;
-  errorShaking: boolean;
+  create: (room: string) => void;
+  join: (room: string) => void;
 };
 
-export default function Lobby({
-  onClickCreate,
-  onClickJoin,
-  roomNo,
-  setRoomNo,
-  errorMessage,
-  errorShaking,
-}: LobbyProps) {
+export default function Lobby({ create, join }: LobbyProps) {
+  const [room, setRoom] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorShaking, setErrorShaking] = useState<boolean>(false);
+
   return (
     <div className={styles.lobby}>
       <div className={`${styles.box} ${errorShaking ? styles.shake : ""}`}>
@@ -26,25 +21,25 @@ export default function Lobby({
             className={styles.input}
             type="text"
             required
-            value={roomNo}
+            value={room}
             tabIndex={1}
             onChange={(e) => {
-              setRoomNo(e.target.value);
+              setRoom(e.target.value);
             }}
           />
           <label className={styles.label}>room number</label>
         </div>
         <p className={styles.errorMessage}>{errorMessage}</p>
-        <div className={``}>
+        <div>
           <a
             className={styles.button}
             tabIndex={2}
             onClick={() => {
-              onClickCreate(roomNo);
+              create(room);
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                onClickCreate(roomNo);
+                create(room);
               }
             }}
           >
@@ -53,10 +48,10 @@ export default function Lobby({
           <a
             className={styles.button}
             tabIndex={3}
-            onClick={() => onClickJoin(roomNo)}
+            onClick={() => join(room)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                onClickJoin(roomNo);
+                join(room);
               }
             }}
           >

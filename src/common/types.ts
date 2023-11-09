@@ -9,3 +9,34 @@ export enum ClientStatus {
   WAITING,
   PLAYING,
 }
+
+export type QueryType = {
+  create: (room: string) => void;
+  join: (room: string) => void;
+  leave: () => void;
+  put: (position: [number, number]) => void;
+  restart: () => void;
+  exit: () => void;
+};
+
+export type GameStatus = {
+  elapsedTurn: number;
+  currentTurn: number;
+  board: CellState[][];
+  isEnded: boolean;
+};
+export interface ServerMessage {
+  type: "client" | "game";
+}
+
+export interface ClientTypeMessage extends ServerMessage {
+  status: "SEARCHING" | "WAITING" | "PLAYING";
+  room?: string;
+}
+
+export interface GameTypeMessage extends ServerMessage {
+  board: number[][];
+  elapsedTurn: number;
+  currentTurn: number;
+  isEnded: boolean;
+}
