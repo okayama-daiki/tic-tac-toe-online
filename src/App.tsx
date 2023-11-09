@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import useGame from "./hooks/useGame";
 
-import Lobby from "./components/Lobby";
-import Waiting from "./components/Waiting";
-import Game from "./components/Game";
+import Lobby from "./components/Lobby/Lobby";
+import Waiting from "./components/Waiting/Waiting";
+import Game from "./components/Game/Game";
 
 import { CellState, ClientStatus } from "./common/types";
 
@@ -39,7 +39,7 @@ export default function App() {
   const [turn, setTurn, board, setBoard] = useGame();
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:5174");
+    const socket = new WebSocket("ws://0.0.0.0:5432");
 
     socket.addEventListener("open", (_) => {
       const create = (roomNo: string) => {
@@ -156,18 +156,16 @@ export default function App() {
   };
 
   return (
-    <>
+    <main>
       {status === ClientStatus.SEARCHING && (
-        <>
-          <Lobby
-            onClickCreate={propsFunctions.create}
-            onClickJoin={propsFunctions.join}
-            roomNo={roomNo}
-            setRoomNo={setRoomNo}
-            errorMessage={errorMessageLobby}
-            errorShaking={errorShaking}
-          ></Lobby>
-        </>
+        <Lobby
+          onClickCreate={propsFunctions.create}
+          onClickJoin={propsFunctions.join}
+          roomNo={roomNo}
+          setRoomNo={setRoomNo}
+          errorMessage={errorMessageLobby}
+          errorShaking={errorShaking}
+        ></Lobby>
       )}
       {status === ClientStatus.WAITING && (
         <Waiting back={backToLobby} roomNo={roomNo}></Waiting>
@@ -183,7 +181,6 @@ export default function App() {
           selfState={selfState}
         ></Game>
       )}
-    </>
+    </main>
   );
-  // return <Game put={propsFunctions.put} turn={turn} board={board}></Game>;
 }

@@ -1,5 +1,5 @@
-import Piece from "./Piece";
-import { CellState } from "../common/types";
+import Piece from "../Piece/Piece";
+import { CellState } from "../../common/types";
 import * as styles from "./Board.css";
 
 type BoardProps = {

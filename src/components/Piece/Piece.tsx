@@ -1,4 +1,4 @@
-import { CellState } from "../common/types";
+import { CellState } from "../../common/types";
 import * as styles from "./Piece.css";
 
 type PieceProps = {

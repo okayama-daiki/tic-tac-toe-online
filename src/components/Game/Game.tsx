@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import Board from "./Board";
-import Piece from "./Piece";
+import Board from "../Board/Board";
+import Piece from "../Piece/Piece";
 
-import { CellState } from "../common/types";
+import { CellState } from "../../common/types";
 
 import * as styles from "./Game.css";
 

@@ -1,7 +1,7 @@
 export enum CellState {
-  "NOUGHT",
-  "CROSS",
-  "EMPTY",
+  "EMPTY" = 0,
+  "CROSS" = 1,
+  "NOUGHT" = -1,
 }
 
 export enum ClientStatus {
