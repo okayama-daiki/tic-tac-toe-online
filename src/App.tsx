@@ -9,20 +9,20 @@ import { ClientStatus } from "./common/types";
 import "./App.css";
 
 export default function App() {
-  const [query, status, room, game] = useSocket();
+  const [clientStatus, gameStatus, room, query] = useSocket();
 
   return (
     <main>
-      {status === ClientStatus.SEARCHING && (
+      {clientStatus === ClientStatus.SEARCHING && (
         <Lobby create={query.create} join={query.join}></Lobby>
       )}
-      {status === ClientStatus.WAITING && (
+      {clientStatus === ClientStatus.WAITING && (
         <Waiting back={query.leave} roomNo={room}></Waiting>
       )}
-      {status === ClientStatus.PLAYING && (
+      {clientStatus === ClientStatus.PLAYING && (
         <Game
-          turn={game.currentTurn}
-          board={game.board}
+          turn={gameStatus.currentTurn}
+          board={gameStatus.board}
           result={""}
           put={query.put}
           restart={query.restart}

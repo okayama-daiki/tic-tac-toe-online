@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-import useGame from "./useGame";
 import {
   ClientStatus,
   ServerMessage,
@@ -13,27 +12,24 @@ import type { QueryType, GameStatus } from "../common/types";
 const HOST = "0.0.0.0";
 const PORT = 5174;
 
-export default function useSocket(): [
-  QueryType,
-  ClientStatus,
-  string,
-  GameStatus
-] {
-  const socketRef = useRef<WebSocket>(new WebSocket(`ws://${HOST}:${PORT}`));
-  const socket = socketRef.current;
-  const [status, setStatus] = useState<ClientStatus>(ClientStatus.SEARCHING);
-  const [room, setRoom] = useState<string>("");
+const socket = new WebSocket(`ws://${HOST}:${PORT}`);
 
-  const [
-    elapsedTurn,
-    setElapsedTurn,
-    currentTurn,
-    setCurrentTurn,
-    board,
-    setBoard,
-    isEnded,
-    setIsEnded,
-  ] = useGame();
+export default function useSocket(): [
+  ClientStatus,
+  GameStatus,
+  string,
+  QueryType
+] {
+  const [clientStatus, setClientStatus] = useState<ClientStatus>(
+    ClientStatus.SEARCHING
+  );
+  const [room, setRoom] = useState<string>("");
+  const [gameStatus, setGameStatus] = useState<GameStatus>({
+    elapsedTurn: 0,
+    currentTurn: 0,
+    board: Array(3).fill(Array(3).fill(CellState.EMPTY)),
+    isEnded: false,
+  });
 
   const query = {
     create: (room: string) => socket.send(`create ${room}`),
@@ -43,13 +39,6 @@ export default function useSocket(): [
       socket.send(`put ${position[0]} ${position[1]}`),
     restart: () => socket.send("restart"),
     exit: () => socket.send("exit"),
-  };
-
-  const game = {
-    elapsedTurn,
-    currentTurn,
-    board,
-    isEnded,
   };
 
   useEffect(() => {
@@ -66,16 +55,16 @@ export default function useSocket(): [
           const clientData = data as ClientTypeMessage;
           switch (clientData.status) {
             case "SEARCHING": {
-              setStatus(ClientStatus.SEARCHING);
+              setClientStatus(ClientStatus.SEARCHING);
               break;
             }
             case "WAITING": {
-              setStatus(ClientStatus.WAITING);
+              setClientStatus(ClientStatus.WAITING);
               setRoom(clientData.room!);
               break;
             }
             case "PLAYING": {
-              setStatus(ClientStatus.PLAYING);
+              setClientStatus(ClientStatus.PLAYING);
               setRoom(clientData.room!);
               break;
             }
@@ -85,12 +74,15 @@ export default function useSocket(): [
 
         case "game": {
           const gameData = data as GameTypeMessage;
-          setElapsedTurn(gameData.elapsedTurn);
-          setCurrentTurn(gameData.currentTurn);
-          setBoard(
-            gameData.board.map((row) => row.map((cell) => cell as CellState))
-          );
-          setIsEnded(gameData.isEnded);
+          const newGameStatus: GameStatus = {
+            elapsedTurn: gameData.elapsedTurn,
+            currentTurn: gameData.currentTurn,
+            board: gameData.board.map((row) =>
+              row.map((cell) => cell as CellState)
+            ),
+            isEnded: gameData.isEnded,
+          };
+          setGameStatus(newGameStatus);
           break;
         }
       }
@@ -107,5 +99,5 @@ export default function useSocket(): [
     return () => {};
   }, []);
 
-  return [query, status, room, game];
+  return [clientStatus, gameStatus, room, query];
 }
