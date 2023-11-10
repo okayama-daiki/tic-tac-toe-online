@@ -20,18 +20,6 @@ export const buttonContainer = style({
   marginBottom: "1rem",
 });
 
-export const button = style({
-  color: "white",
-  textDecoration: "underline",
-  cursor: "pointer",
-  selectors: {
-    "&:focus": {
-      outline: "1px solid white",
-      borderRadius: "2px",
-    },
-  },
-});
-
 export const result = style({
   height: "20px",
   color: "white",
@@ -65,4 +53,26 @@ export const activeTurn = style({
 
 export const text = style({
   fontSize: "1rem",
+});
+
+export const button = style({
+  color: "whitesmoke",
+  opacity: "0.6",
+  backgroundColor: "transparent",
+  transition: "all 0.2s ease-in-out",
+  border: "none",
+  cursor: "pointer",
+  selectors: {
+    "&:focus": {
+      outline: "none",
+    },
+    "&:hover": {
+      opacity: "1",
+    },
+  },
+});
+
+export const label = style({
+  letterSpacing: "0.5px",
+  cursor: "pointer",
 });

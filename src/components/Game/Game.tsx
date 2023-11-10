@@ -65,7 +65,8 @@ export default function Game({
       <Board board={board} onClick={put} boardAnimation={boardAnimation} />
 
       <div className={styles.result}>{result}</div>
-      <a
+      <button
+        id="restart-button"
         className={styles.button}
         onClick={() => {
           restart();
@@ -75,8 +76,10 @@ export default function Game({
           }, 100);
         }}
       >
-        restart
-      </a>
+        <label htmlFor="restart-button" className={styles.label}>
+          restart game
+        </label>
+      </button>
     </div>
   );
 }
