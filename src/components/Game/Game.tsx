@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Board from "../Board/Board";
 import Piece from "../Piece/Piece";
+import BackButton from "../BackButton/BackButton";
 
 import { CellState } from "../../common/types";
 
@@ -9,39 +10,26 @@ import * as styles from "./Game.css";
 
 type GameProps = {
   put: (position: [number, number]) => void;
+  restart: () => void;
+  exit: () => void;
   turn: number;
   board: number[][];
   result: string;
-  restart: () => void;
-  exit: () => void;
 };
 
 export default function Game({
   put,
+  restart,
+  exit,
   turn,
   board,
   result,
-  restart,
-  exit,
 }: GameProps) {
   const [boardAnimation, setBoardAnimation] = useState<boolean>(true);
 
   return (
     <div className={styles.game}>
-      <div className={styles.buttonContainer}>
-        <a
-          className={styles.button}
-          tabIndex={1}
-          onClick={exit}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              exit();
-            }
-          }}
-        >
-          Back to Title
-        </a>
-      </div>
+      <BackButton onClick={exit} label="exit room" />
       <div className={styles.turnContainer}>
         <div
           className={`${styles.turn} ${turn % 2 == 0 ? styles.activeTurn : ""}`}

@@ -1,3 +1,5 @@
+import BackButton from "../BackButton/BackButton";
+
 import * as styles from "./Waiting.css";
 
 type WaitingProps = {
@@ -8,20 +10,7 @@ type WaitingProps = {
 export default function Waiting({ back, roomNo }: WaitingProps) {
   return (
     <div className={styles.waiting}>
-      <div className={styles.buttonContainer}>
-        <a
-          className={styles.button}
-          tabIndex={1}
-          onClick={back}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              back();
-            }
-          }}
-        >
-          Back
-        </a>
-      </div>
+      <BackButton onClick={back} label="exit room" />
       <div className={styles.board}>
         <div className={`${styles.face} ${styles.firstFace}`}>
           <div className={styles.line1}></div>

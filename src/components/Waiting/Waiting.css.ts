@@ -30,21 +30,6 @@ export const waiting = style({
   color: "white",
 });
 
-export const buttonContainer = style({
-  width: "230px",
-});
-
-export const button = style({
-  textDecoration: "underline",
-  cursor: "pointer",
-  selectors: {
-    "&:focus": {
-      outline: "1px solid white",
-      borderRadius: "2px",
-    },
-  },
-});
-
 export const board = style({
   display: "flex",
   marginTop: "4rem",
