@@ -69,6 +69,7 @@ export const label = style({
   padding: "10px 0",
   fontSize: "16px",
   color: "rgba(255, 255, 255, 0.5)",
+  letterSpacing: ".75px",
   pointerEvents: "none",
   transition: "0.5s",
 });

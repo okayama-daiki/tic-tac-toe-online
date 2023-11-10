@@ -1,7 +1,7 @@
 export enum CellState {
-  "EMPTY" = 0,
-  "CROSS" = 1,
-  "NOUGHT" = -1,
+  "EMPTY" = -1,
+  "CROSS" = 0,
+  "NOUGHT" = 1,
 }
 
 export enum ClientStatus {
@@ -27,6 +27,7 @@ export type GameStatus = {
 };
 export interface ServerMessage {
   type: "client" | "game";
+  error?: string;
 }
 
 export interface ClientTypeMessage extends ServerMessage {

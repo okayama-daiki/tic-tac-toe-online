@@ -9,12 +9,12 @@ import { ClientStatus } from "./common/types";
 import "./App.css";
 
 export default function App() {
-  const [clientStatus, gameStatus, room, query] = useSocket();
+  const [clientStatus, gameStatus, room, error, query] = useSocket();
 
   return (
     <main>
       {clientStatus === ClientStatus.SEARCHING && (
-        <Lobby create={query.create} join={query.join}></Lobby>
+        <Lobby create={query.create} join={query.join} error={error}></Lobby>
       )}
       {clientStatus === ClientStatus.WAITING && (
         <Waiting back={query.leave} roomNo={room}></Waiting>
