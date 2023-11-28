@@ -14,8 +14,6 @@ type GameProps = {
 };
 
 export default function Game({ put, restart, exit, turn, board }: GameProps) {
-  const [boardAnimation, setBoardAnimation] = useState<boolean>(true);
-
   const Message = ({ text, useDot }: { text: string; useDot?: boolean }) => {
     return (
       <p className={styles.message}>
@@ -38,20 +36,10 @@ export default function Game({ put, restart, exit, turn, board }: GameProps) {
         <Message text={turn ? "Your turn" : "Waiting"} useDot={!turn} />
       </div>
       <div className={styles.boardContainer}>
-        <Board board={board} onClick={put} boardAnimation={boardAnimation} />
+        <Board board={board} onClick={put} clickable={turn} />
       </div>
 
-      <button
-        id="restart-button"
-        className={styles.button}
-        onClick={() => {
-          restart();
-          setBoardAnimation(false);
-          setTimeout(() => {
-            setBoardAnimation(true);
-          }, 100);
-        }}
-      >
+      <button id="restart-button" className={styles.button} onClick={restart}>
         <label htmlFor="restart-button" className={styles.label}>
           restart game
         </label>

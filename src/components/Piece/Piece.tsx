@@ -3,7 +3,6 @@ import * as styles from "./Piece.css";
 
 type PieceProps = {
   pieceType: CellState;
-  style?: React.CSSProperties;
 };
 
 export default function Piece({ pieceType }: PieceProps) {
@@ -24,6 +23,6 @@ export default function Piece({ pieceType }: PieceProps) {
       );
 
     case CellState.EMPTY:
-      return <svg className={`${styles.piece} ${styles.empty}`}></svg>;
+      return <svg className={styles.piece}></svg>;
   }
 }
