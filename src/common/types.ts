@@ -23,7 +23,7 @@ export type GameStatus = {
   elapsedTurn: number;
   isMyTurn: boolean;
   board: CellState[][];
-  isEnded: boolean;
+  result?: string;
 };
 
 export interface ServerMessage {
@@ -41,5 +41,5 @@ export interface GameTypeMessage extends ServerMessage {
   elapsedTurn: number;
   currentTurn: number;
   isMyTurn: boolean;
-  isEnded: boolean;
+  result?: string;
 }

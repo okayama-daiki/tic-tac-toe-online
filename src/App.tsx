@@ -23,6 +23,7 @@ export default function App() {
         <Game
           turn={gameStatus.isMyTurn}
           board={gameStatus.board}
+          result={gameStatus.result}
           put={query.put}
           restart={query.restart}
           exit={query.exit}

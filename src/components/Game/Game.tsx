@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Board from "../Board/Board";
 import BackButton from "../BackButton/BackButton";
 
@@ -11,9 +9,17 @@ type GameProps = {
   exit: () => void;
   turn: boolean;
   board: number[][];
+  result?: string;
 };
 
-export default function Game({ put, restart, exit, turn, board }: GameProps) {
+export default function Game({
+  put,
+  restart,
+  exit,
+  turn,
+  board,
+  result,
+}: GameProps) {
   const Message = ({ text, useDot }: { text: string; useDot?: boolean }) => {
     return (
       <p className={styles.message}>
@@ -33,10 +39,14 @@ export default function Game({ put, restart, exit, turn, board }: GameProps) {
     <div className={styles.game}>
       <BackButton onClick={exit} label="exit room" />
       <div className={styles.messageContainer}>
-        <Message text={turn ? "Your turn" : "Waiting"} useDot={!turn} />
+        {result ? (
+          <Message text={result} />
+        ) : (
+          <Message text={turn ? "Your turn" : "Waiting"} useDot={!turn} />
+        )}
       </div>
       <div className={styles.boardContainer}>
-        <Board board={board} onClick={put} clickable={turn} />
+        <Board board={board} onClick={put} clickable={!result && turn} />
       </div>
 
       <button id="restart-button" className={styles.button} onClick={restart}>

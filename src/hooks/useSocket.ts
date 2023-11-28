@@ -28,7 +28,7 @@ export default function useSocket(): [
     elapsedTurn: 0,
     isMyTurn: true,
     board: Array(3).fill(Array(3).fill(CellState.EMPTY)),
-    isEnded: false,
+    result: "",
   });
   const [room, setRoom] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -83,14 +83,13 @@ export default function useSocket(): [
 
         case "game": {
           const gameData = data as GameTypeMessage;
-          console.log(gameData);
           const newGameStatus: GameStatus = {
             elapsedTurn: gameData.elapsedTurn,
             isMyTurn: gameData.isMyTurn,
             board: gameData.board.map((row) =>
               row.map((cell) => cell as CellState)
             ),
-            isEnded: gameData.isEnded,
+            result: gameData.result,
           };
           setGameStatus(newGameStatus);
           break;
