@@ -13,11 +13,7 @@ export default function Lobby({ create, join, error }: LobbyProps) {
 
   return (
     <div className={styles.lobby}>
-      <div
-        className={`${styles.box} ${
-          error && Math.random() ? styles.shake : ""
-        }`}
-      >
+      <div className={`${styles.box} ${error && styles.shake}`}>
         <h1 className={styles.gameTitle}>Tic-Tac-Toe Online</h1>
         <div className={styles.inputBox}>
           <input
