@@ -57,7 +57,7 @@ export default function useSocket(): [
     socket.addEventListener("message", (event) => {
       const data: ServerMessage = JSON.parse(event.data);
       data.error && setError(data.error);
-      console.info("server> ", data);
+      console.debug("server> ", data);
 
       switch (data.type) {
         case "client": {
