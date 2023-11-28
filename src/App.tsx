@@ -21,9 +21,8 @@ export default function App() {
       )}
       {clientStatus === ClientStatus.PLAYING && (
         <Game
-          turn={gameStatus.currentTurn}
+          turn={gameStatus.isMyTurn}
           board={gameStatus.board}
-          result={""}
           put={query.put}
           restart={query.restart}
           exit={query.exit}

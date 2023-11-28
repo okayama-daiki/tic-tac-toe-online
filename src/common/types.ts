@@ -21,10 +21,11 @@ export type QueryType = {
 
 export type GameStatus = {
   elapsedTurn: number;
-  currentTurn: number;
+  isMyTurn: boolean;
   board: CellState[][];
   isEnded: boolean;
 };
+
 export interface ServerMessage {
   type: "client" | "game";
   error?: string;
@@ -39,5 +40,6 @@ export interface GameTypeMessage extends ServerMessage {
   board: number[][];
   elapsedTurn: number;
   currentTurn: number;
+  isMyTurn: boolean;
   isEnded: boolean;
 }

@@ -1,4 +1,25 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
+
+const fadeIn = keyframes({
+  "0%": {
+    opacity: 0,
+  },
+  "100%": {
+    opacity: 1,
+  },
+});
+
+const hop = keyframes({
+  "0%": {
+    transform: "translateY(0)",
+  },
+  "10%": {
+    transform: "translateY(-5px)",
+  },
+  "25%": {
+    transform: "translateY(0)",
+  },
+});
 
 export const game = style({
   display: "flex",
@@ -10,49 +31,40 @@ export const game = style({
   height: "100vh",
 });
 
-export const currentTurn = style({
-  color: "white",
-  marginBottom: "1rem",
-});
-
-export const buttonContainer = style({
-  width: "200px",
-  marginBottom: "1rem",
-});
-
-export const result = style({
-  height: "20px",
-  color: "white",
-  marginTop: "1rem",
-});
-
-export const turnContainer = style({
+export const messageContainer = style({
   width: "200px",
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
-  marginBottom: "1rem",
+  margin: "2rem 0 5px",
 });
 
-export const turn = style({
-  width: "45%",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "center",
-  borderBottom: "2px solid rgba(245, 245, 245, 0.3)",
-  borderRadius: "3%",
-  color: "rgba(245, 245, 245, 0.3)",
-  transition: "all 0.5s ease-in-out",
+export const message = style({
+  width: "100%",
+  margin: "0",
+  textAlign: "center",
+  color: "rgba(245, 245, 245, 0.85)",
+  opacity: "0",
+  animation: `${fadeIn} 0.25s 0.5s forwards`,
 });
 
-export const activeTurn = style({
-  borderBottom: "2px solid rgba(245, 245, 245, 1)",
-  color: "rgba(245, 245, 245, 1)",
+export const dot = style({
+  display: "inline-block",
+  selectors: {
+    "&:nth-child(1)": {
+      animation: `${hop} 3s .2s ease-in infinite`,
+    },
+    "&:nth-child(2)": {
+      animation: `${hop} 3s .6s ease-in infinite`,
+    },
+    "&:nth-child(3)": {
+      animation: `${hop} 3s 1s ease-in-out infinite`,
+    },
+  },
 });
 
-export const text = style({
-  fontSize: "1rem",
+export const boardContainer = style({
+  margin: "10px 0 20px",
 });
 
 export const button = style({

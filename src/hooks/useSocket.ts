@@ -26,7 +26,7 @@ export default function useSocket(): [
   );
   const [gameStatus, setGameStatus] = useState<GameStatus>({
     elapsedTurn: 0,
-    currentTurn: 0,
+    isMyTurn: true,
     board: Array(3).fill(Array(3).fill(CellState.EMPTY)),
     isEnded: false,
   });
@@ -83,9 +83,10 @@ export default function useSocket(): [
 
         case "game": {
           const gameData = data as GameTypeMessage;
+          console.log(gameData);
           const newGameStatus: GameStatus = {
             elapsedTurn: gameData.elapsedTurn,
-            currentTurn: gameData.currentTurn,
+            isMyTurn: gameData.isMyTurn,
             board: gameData.board.map((row) =>
               row.map((cell) => cell as CellState)
             ),

@@ -6,24 +6,24 @@ type PieceProps = {
   style?: React.CSSProperties;
 };
 
-export default function Piece({ pieceType, style }: PieceProps) {
+export default function Piece({ pieceType }: PieceProps) {
   switch (pieceType) {
     case CellState.NOUGHT:
       return (
-        <svg viewBox="0 0 128 128" className={styles.piece} style={style}>
+        <svg viewBox="0 0 128 128" className={styles.piece}>
           <circle cx="64" cy="64" r="48" className={styles.nought}></circle>
         </svg>
       );
 
     case CellState.CROSS:
       return (
-        <svg viewBox="0 0 128 128" className={styles.piece} style={style}>
+        <svg viewBox="0 0 128 128" className={styles.piece}>
           <path d="M16,16L112,112" className={styles.cross}></path>
           <path d="M112,16L16,112" className={styles.cross}></path>
         </svg>
       );
 
     case CellState.EMPTY:
-      return <svg className={styles.piece} style={style}></svg>;
+      return <svg className={`${styles.piece} ${styles.empty}`}></svg>;
   }
 }

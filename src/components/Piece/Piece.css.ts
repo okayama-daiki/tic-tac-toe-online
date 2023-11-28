@@ -40,3 +40,7 @@ export const cross = style({
   strokeDashoffset: "0",
   animation: `${drawCross} 0.3s ease-in-out`,
 });
+
+export const empty = style({
+  cursor: "pointer",
+});
