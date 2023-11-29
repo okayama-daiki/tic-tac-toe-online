@@ -19,7 +19,7 @@ export default function BackButton({ label, onClick }: BackButtonProps) {
           }
         }}
       >
-        <img src="/right.svg" alt="" className={styles.arrow} />
+        <img src="right.svg" alt="" className={styles.arrow} />
         <label htmlFor="button" className={styles.label}>
           {label}
         </label>
