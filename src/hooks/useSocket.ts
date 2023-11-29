@@ -9,10 +9,7 @@ import {
 } from "../common/types";
 import type { QueryType, GameStatus } from "../common/types";
 
-const HOST = "0.0.0.0";
-const PORT = 5174;
-
-const socket = new WebSocket(`ws://${HOST}:${PORT}`);
+const socket = new WebSocket(import.meta.env.VITE_WSS_URI);
 
 export default function useSocket(): [
   ClientStatus,
