@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import {
   ClientStatus,
   ServerMessage,
-  ClientTypeMessage,
-  GameTypeMessage,
+  StatusMessage,
+  GameMessage,
   CellState,
 } from "../common/types";
 import type { QueryType, GameStatus } from "../common/types";
@@ -41,7 +41,7 @@ export default function useSocket(): [
     },
     leave: () => socket.send("leave"),
     put: (position: [number, number]) =>
-      socket.send(`put ${position[0]} ${position[1]}`),
+      socket.send(`put ${position[0] * 3 + position[1]}`),
     restart: () => socket.send("restart"),
     exit: () => socket.send("exit"),
   };
@@ -57,36 +57,41 @@ export default function useSocket(): [
       console.debug("server> ", data);
 
       switch (data.type) {
-        case "client": {
-          const clientData = data as ClientTypeMessage;
-          switch (clientData.status) {
-            case "SEARCHING": {
+        case "Status": {
+          const statusMessage = data.statusMessage as StatusMessage;
+          switch (statusMessage.status) {
+            case "Searching": {
               setClientStatus(ClientStatus.SEARCHING);
               break;
             }
-            case "WAITING": {
+            case "Waiting": {
               setClientStatus(ClientStatus.WAITING);
-              setRoom(clientData.room!);
+              setRoom(statusMessage.roomName!);
               break;
             }
-            case "PLAYING": {
+            case "Playing": {
               setClientStatus(ClientStatus.PLAYING);
-              setRoom(clientData.room!);
+              setRoom(statusMessage.roomName!);
               break;
             }
           }
           break;
         }
 
-        case "game": {
-          const gameData = data as GameTypeMessage;
+        case "Game": {
+          const gameMessage = data.gameMessage as GameMessage;
+          const gameBoard2d = Array(3);
+          for (let i = 0; i < 3; i++) {
+            gameBoard2d[i] = Array(3);
+            for (let j = 0; j < 3; j++) {
+              gameBoard2d[i][j] = gameMessage.board[i * 3 + j] as CellState;
+            }
+          }
           const newGameStatus: GameStatus = {
-            elapsedTurn: gameData.elapsedTurn,
-            isMyTurn: gameData.isMyTurn,
-            board: gameData.board.map((row) =>
-              row.map((cell) => cell as CellState)
-            ),
-            result: gameData.result,
+            elapsedTurn: gameMessage.elapsedTurn,
+            isMyTurn: gameMessage.isMyTurn,
+            board: gameBoard2d,
+            result: gameMessage.result,
           };
           setGameStatus(newGameStatus);
           break;

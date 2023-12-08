@@ -27,19 +27,20 @@ export type GameStatus = {
 };
 
 export interface ServerMessage {
-  type: "client" | "game";
+  type: "Status" | "Game";
   error?: string;
+  statusMessage?: StatusMessage;
+  gameMessage?: GameMessage;
 }
 
-export interface ClientTypeMessage extends ServerMessage {
-  status: "SEARCHING" | "WAITING" | "PLAYING";
-  room?: string;
+export interface StatusMessage {
+  status: "Searching" | "Waiting" | "Playing";
+  roomName?: string;
 }
 
-export interface GameTypeMessage extends ServerMessage {
-  board: number[][];
+export interface GameMessage {
+  board: number[];
   elapsedTurn: number;
-  currentTurn: number;
   isMyTurn: boolean;
   result?: string;
 }
