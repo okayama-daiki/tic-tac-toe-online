@@ -6,8 +6,6 @@ import Game from "./components/Game/Game";
 
 import { ClientStatus } from "./common/types";
 
-import "./App.css";
-
 export default function App() {
   const [clientStatus, gameStatus, room, error, query] = useSocket();
 
