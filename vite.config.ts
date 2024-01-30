@@ -4,6 +4,6 @@ import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/Tic-Tac-Toe-online/",
+  base: "/tic-tac-toe-online/",
   plugins: [react(), vanillaExtractPlugin()],
 });
