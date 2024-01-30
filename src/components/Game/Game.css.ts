@@ -28,7 +28,7 @@ export const game = style({
   justifyContent: "center",
   backgroundColor: "#282c34",
   width: "100vw",
-  height: "100vh",
+  height: "100dvh",
 });
 
 export const messageContainer = style({

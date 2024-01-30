@@ -25,7 +25,7 @@ export const lobby = style({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  height: "100vh",
+  height: "100dvh",
   width: "100vw",
   backgroundColor: "#282c34",
   color: "white",
