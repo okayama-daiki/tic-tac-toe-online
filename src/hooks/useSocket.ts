@@ -100,10 +100,14 @@ export default function useSocket(): [
     });
 
     socket.addEventListener("error", (event) => {
+      setClientStatus(ClientStatus.SEARCHING);
+      setError("Server is not available.");
       console.error("Error: ", event);
     });
 
     socket.addEventListener("close", () => {
+      setClientStatus(ClientStatus.SEARCHING);
+      setError("Server is not available.");
       console.debug("Disconnected from server");
     });
 
