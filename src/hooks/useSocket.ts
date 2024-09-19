@@ -55,10 +55,9 @@ export default function useSocket(): [
       const data: ServerMessage = JSON.parse(event.data);
       data.error && setError(data.error);
       console.debug("server> ", data);
-
       switch (data.type) {
         case "Status": {
-          const statusMessage = data.statusMessage as StatusMessage;
+          const statusMessage = (data.message as StatusMessage).Status;
           switch (statusMessage.status) {
             case "Searching": {
               setClientStatus(ClientStatus.SEARCHING);
@@ -79,7 +78,7 @@ export default function useSocket(): [
         }
 
         case "Game": {
-          const gameMessage = data.gameMessage as GameMessage;
+          const gameMessage = (data.message as GameMessage).Game;
           const gameBoard2d = Array(3);
           for (let i = 0; i < 3; i++) {
             gameBoard2d[i] = Array(3);

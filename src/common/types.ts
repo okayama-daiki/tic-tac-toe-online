@@ -29,18 +29,21 @@ export type GameStatus = {
 export interface ServerMessage {
   type: "Status" | "Game";
   error?: string;
-  statusMessage?: StatusMessage;
-  gameMessage?: GameMessage;
+  message: StatusMessage | GameMessage;
 }
 
 export interface StatusMessage {
-  status: "Searching" | "Waiting" | "Playing";
-  roomName?: string;
+  Status: {
+    status: "Searching" | "Waiting" | "Playing";
+    roomName?: string;
+  };
 }
 
 export interface GameMessage {
-  board: number[];
-  elapsedTurn: number;
-  isMyTurn: boolean;
-  result?: string;
+  Game: {
+    board: number[];
+    elapsedTurn: number;
+    isMyTurn: boolean;
+    result?: string;
+  };
 }
